@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build . -t $DOCKER_USERNAME/keycloak
+
+script:
+  - echo -n "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push $DOCKER_USERNAME/keycloak
+
+branches:
+  only:
+    - master
+
